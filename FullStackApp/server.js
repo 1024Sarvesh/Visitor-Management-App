@@ -9,8 +9,6 @@ app.use(cors())
 app.use(express.json())
 Connectdb()
 
-
-
 app.get("/allvisitors", async (req, res) => {
 
     const AllVisitor = await Visitor.find()
@@ -35,8 +33,6 @@ app.patch("/visitors/:id", async (req, res) => {
     const id = req.params.id
     const { name, email, gender, address, mobileNo, purpose, remarks } = req.body;
     try {
-
-
         const UpdateVisitor = await Visitor.findByIdAndUpdate(
             id,
             { name, email, gender, address, mobileNo, purpose, remarks },
@@ -51,31 +47,37 @@ app.patch("/visitors/:id", async (req, res) => {
         }
 
         console.log("Updated User:", UpdateVisitor);
-        res.json({msg:"Visitor data updated",
-            visitor:UpdateVisitor
-        }) ;
+        res.json({
+            msg: "Visitor data updated",
+            visitor: UpdateVisitor
+        });
     } catch (error) {
-console.error("Something Error In Visitor Upadate",error);
+        console.error("Something Error In Visitor Upadate", error);
     }
 
 
 })
 
+app.delete("/visitors/:id", async (req, res) => {
+    const id = req.params.id;
+    try {
+        const DeletedVisitor = await Visitor.findByIdAndDelete(
+            id,
+            {
+                new: true,
+                runValidators: true
+            }
 
-app.delete("/visitors/:id",async(req,res)=>{
-const id = req.params.id;
-const { name, email, gender, address, mobileNo, purpose, remarks } = req.body;
-try {
-    const res = Visitor.findByIdAndDelete(id,
-        {name,email,gender,mobileNo,address,}
-    )
-} catch (error) {
-    
-}
+        )
+        console.log("Deleted User:",DeletedVisitor );
+    res.json({
+        msg: "Visitor data Deleted",
+        visitor: DeletedVisitor
+    });
+    } catch (error) {
+        console.log("Something error in Visitor Delete",error)
+    }
 })
-
-
-
 
 app.post("/visitors", async (req, res) => {
 

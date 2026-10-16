@@ -24,6 +24,28 @@ function HomePage() {
 
   }, [])
 
+
+  const VisitorDeleted = async (id) => {
+
+    try {
+      const res = await fetch(`http://127.0.0.1:5000/visitors/${id}`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': "application/json"
+        },
+      
+
+      });
+
+      const data = await res.json();
+      console.log(data);
+      setVisitors((prev)=>prev.filter((visitor)=>visitor._id !== id))
+      alert("Visitor Deleted Successfully")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
 
@@ -128,9 +150,10 @@ function HomePage() {
                     </div>
 
                     <div className='flex justify-evenly'>
-                      <Link className='border px-5 py-0.5 rounded bg-indigo-800 text-white'
+                      <Link className='border px-5 py-0.5 rounded bg-indigo-800 text-white cursor-pointer'
                         to={`/AddVisitors?id=${visitor._id}&name=${visitor.name}&email=${visitor.email}&address=${visitor.address}&gender=${visitor.gender}&mobileNo=${visitor.mobileNo}&purpose=${visitor.purpose}&remarks=${visitor.remarks}&date_and_time=${visitor.date_and_time}`}>Edit</Link>
-                      <Link className='border px-5 py-0.5 rounded bg-red-700 text-white'>Delete</Link>
+                      <button className='border px-5 py-0.5 rounded bg-red-700 text-white cursor-pointer' type='button' 
+                      onClick={() => VisitorDeleted(visitor._id)}>Delete</button>
                     </div>
                   </div>
                 </div>
