@@ -51,15 +51,14 @@ function HomePage() {
 
       <div className="min-h-screen bg-slate-100 px-4 py-10 sm:px-8">
         <div className="mx-auto max-w-6xl">
-
-          {/* <div className="mb-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+<div className="mb-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
           <p className="text-sm font-medium text-slate-500 text-center">
             Total Visitors
           </p>
           <h2 className="mt-2 text-3xl font-bold text-indigo-600 text-center">
             {visitors.length}
           </h2>
-        </div> */}
+        </div>
 
 
 
